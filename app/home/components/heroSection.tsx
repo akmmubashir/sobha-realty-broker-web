@@ -33,7 +33,7 @@ const HeroSection = () => {
     },
   ];
 
-  const [currentSlide, setCurrentSlide] = useState(0); 
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   // Autoplay interval effect
   useEffect(() => {
@@ -123,16 +123,16 @@ const HeroSection = () => {
           {/* Content */}
           <div
             ref={contentRef}
-            className="relative z-20 h-dvh max-lg:gap-[40px_0] p-[160px_0px_60px] max-xl:p-[140px_40px_60px] max-lg:p-[100px_20px_40px] max-w-7xl mx-auto flex items-center justify-between max-lg:flex-col w-full px-4"
+            className="relative z-20 h-dvh max-lg:gap-[40px_0] p-[160px_0px_60px] max-xl:p-[140px_40px_60px] max-lg:p-[100px_20px_40px] max-w-7xl mx-auto flex items-center w-full px-4"
           >
             <div className="space-y-6">
               {/* location icon */}
               <div
                 ref={locationRef}
-                className="flex items-center gap-2 text-white/80"
+                className="flex items-center gap-2 max-lg:gap-1"
               >
                 <svg
-                  className="w-8 h-8"
+                  className="w-8 h-8 max-xl:h-6 max-xl:w-6"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -150,7 +150,7 @@ const HeroSection = () => {
                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                <span className="text-[22px] font-medium">
+                <span className="text-[22px] max-xl:text-[18px] max-md:text-[16px] font-medium">
                   {currentItem.location}
                 </span>
               </div>
@@ -166,16 +166,12 @@ const HeroSection = () => {
               >
                 {currentItem.subtitle}
               </p>
-            </div>
-
-
-            {/* Action Button */}
-            <div className="absolute bottom-12 max-lg:bottom-8 right-8 max-lg:right-4">
-              <a
-                ref={buttonRef}
-                href={currentItem.link}
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl"
-              >
+              <div className="lg:hidden">
+                <a
+                  ref={buttonRef}
+                  href={currentItem.link}
+                  className="inline-flex items-center gap-2 px-4 py-3 bg-white text-gray-900 font-medium hover:bg-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                >
                   <span>Explore Properties</span>
                   <svg
                     className="w-5 h-5"
@@ -192,6 +188,32 @@ const HeroSection = () => {
                   </svg>
                 </a>
               </div>
+            </div>
+
+
+            {/* Action Button */}
+            <div className="max-lg:hidden absolute bottom-12 max-lg:bottom-8 right-8 max-lg:right-4">
+              <a
+                ref={buttonRef}
+                href={currentItem.link}
+                className="inline-flex text-[16px] items-center gap-2 px-8 py-4 bg-white text-gray-900 font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              >
+                <span>Explore Properties</span>
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </a>
+            </div>
 
             {/* Slide Indicators */}
             <div className="absolute bottom-12 max-lg:bottom-8 left-8 max-lg:left-4 z-30 flex gap-3">
@@ -209,11 +231,10 @@ const HeroSection = () => {
                       gsap.to(e.currentTarget, { scale: 1, duration: 0.2 });
                     }
                   }}
-                  className={`cursor-pointer h-1.5 rounded-full transition-all duration-300 ${
-                    index === currentSlide
+                  className={`cursor-pointer h-1.5 rounded-full transition-all duration-300 ${index === currentSlide
                       ? "bg-white w-20"
                       : "bg-white/50 hover:bg-white/75 w-12"
-                  }`}
+                    }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
               ))}

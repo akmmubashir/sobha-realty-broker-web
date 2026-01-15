@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://real-estate-broker-landing-page.vercel.app",
   },
-  title: "DAMAC Properties | Luxury Properties in Dubai",
+  title: "Sobha Realty Brokers | Your Gateway to Dream Properties",
   description:
-    "DAMAC Properties is your trusted partner for luxury properties in Dubai. Discover your dream home with us.",
+    "Sobha Realty Brokers is your trusted partner for luxury properties in Dubai. Discover your dream home with us.",
   keywords: [
-    "DAMAC Properties",
+    "Sobha Realty Brokers",
     "Luxury Properties",
     "Dubai Real Estate",
     "Apartments for Sale",
@@ -27,16 +27,16 @@ export const metadata: Metadata = {
     "Dubai Properties",
     "Real Estate Listings",
   ],
-  authors: [{ name: "DAMAC Properties" }],
-  creator: "DAMAC Properties",
-  publisher: "DAMAC Properties",
+  authors: [{ name: "Sobha Realty Brokers" }],
+  creator: "Sobha Realty Brokers",
+  publisher: "Sobha Realty Brokers",
 
   openGraph: {
-    title: "DAMAC Properties | Luxury Properties in Dubai",
+    title: "Sobha Realty Brokers | Luxury Properties in Dubai",
     description:
-      "DAMAC is your trusted partner for luxury properties in Dubai. Discover your dream home with us.",
+      "Sobha Realty Brokers is your trusted partner for luxury properties in Dubai. Discover your dream home with us.",
     url: "https://real-estate-broker-landing-page.vercel.app",
-    siteName: "DAMAC Properties",
+    siteName: "Sobha Realty Brokers",
     type: "website",
     locale: "en_US",
     images: [
@@ -44,16 +44,16 @@ export const metadata: Metadata = {
         url: "/assets/common/image.jpg",
         width: 1200,
         height: 630,
-        alt: "DAMAC Properties | Luxury Properties in Dubai",
+        alt: "Sobha Realty Brokers | Luxury Properties in Dubai",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "DAMAC Properties | Luxury Properties in Dubai",
+    title: "Sobha Realty Brokers | Luxury Properties in Dubai",
     description:
-      "DAMAC is your trusted partner for luxury properties in Dubai. Discover your dream home with us.",
+      "Sobha Realty Brokers is your trusted partner for luxury properties in Dubai. Discover your dream home with us.",
     images: ["/assets/common/image.jpg"],
   },
 
