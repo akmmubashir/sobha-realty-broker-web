@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Logo from "./logo";
-import Navigation from "./navigation"; 
+import Navigation from "./navigation";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
