@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Logo from "./logo";
 import Navigation from "./navigation";
+import Link from "next/link";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -22,8 +23,13 @@ const Header = () => {
         className={`p-[20px_0px] max-xl:p-[20px_40px] max-md:p-[20px_20px] max-w-300 mx-auto flex items-center justify-between`}
       >
         <Navigation type={scrolled ? "scroll" : "transparent"} />
-        <Logo color={scrolled ? "black" : "white"} />
-        <Navigation type={scrolled ? "scroll" : "transparent"} />
+        <Logo color={scrolled ? "black" : "white"} /> 
+         <Link 
+          href={"mailto:sobharealty-broker@sobharealty.com"}
+          className={`text-[16px] ${!scrolled ? "text-white hover:text-[#d9baa0]" : "text-[#160A0A] hover:text-[#d9baa0]"} ${scrolled ? "font-medium" : ""}`}
+        >
+        sobharealty-broker@sobharealty.com
+        </Link>
       </div>
     </div>
   );

@@ -123,7 +123,7 @@ const HeroSection = () => {
           {/* Content */}
           <div
             ref={contentRef}
-            className="relative z-20 h-dvh max-lg:gap-[40px_0] p-[160px_0px_60px] max-xl:p-[140px_40px_60px] max-lg:p-[100px_20px_40px] max-w-7xl mx-auto flex items-center w-full px-4"
+            className="relative z-20 h-dvh max-lg:gap-[40px_0] p-[160px_0px_60px] max-xl:p-[140px_40px_60px] max-lg:p-[100px_20px_40px] mx-auto max-w-300 flex items-center w-full"
           >
             <div className="space-y-6">
               {/* location icon */}
@@ -192,11 +192,11 @@ const HeroSection = () => {
 
 
             {/* Action Button */}
-            <div className="max-lg:hidden absolute bottom-12 max-lg:bottom-8 right-8 max-lg:right-4">
+            <div className="max-lg:hidden absolute bottom-12 max-lg:bottom-8 right-8 max-lg:right-4 hover:scale-95 transition-all duration-300">
               <a
                 ref={buttonRef}
                 href={currentItem.link}
-                className="inline-flex text-[16px] items-center gap-2 px-8 py-4 bg-white text-gray-900 font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                className="inline-flex text-[16px] items-center gap-2 px-8 py-4 bg-white text-gray-900 font-semibold hover:bg-gray-100 hover:shadow-xl"
               >
                 <span>Explore Properties</span>
                 <svg
