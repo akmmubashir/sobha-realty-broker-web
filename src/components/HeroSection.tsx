@@ -1,98 +1,119 @@
-import React, { Children } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowDown } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import { TextReveal } from './TextReveal';
+import { MagneticButton } from './MagneticButton';
+
 export function HeroSection() {
-  const headline = 'The Architecture of Silence';
-  const words = headline.split(' ');
-  const container = {
-    hidden: {
-      opacity: 0
-    },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.3
-      }
-    }
-  };
-  const child = {
-    hidden: {
-      opacity: 0,
-      y: 20,
-      filter: 'blur(10px)'
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      transition: {
-        type: 'spring',
-        damping: 12,
-        stiffness: 100
-      }
-    }
-  };
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start']
+  });
+  // Parallax transforms
+  const yHero = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  const yText = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+  const opacityHero = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scaleHero = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+  // Mouse parallax for hero
+  const mouseX = useMotionValue(0);
+  const heroX = useSpring(useTransform(mouseX, [-0.5, 0.5], [-20, 20]), {
+    stiffness: 100,
+    damping: 30
+  });
+
   return (
-    <section
-      id="hero"
-      className="relative h-screen w-full overflow-hidden flex flex-col md:flex-row bg-editorial-bg">
+    <React.Fragment>
+      {/* 1. Hero Section with Advanced Parallax */}
+      <section
+        ref={heroRef}
+        className="relative h-screen w-full overflow-hidden flex items-center justify-center">
 
-      {/* Left Content */}
-      <div className="w-full md:w-1/2 h-full flex flex-col justify-center px-8 md:px-16 lg:px-24 z-10 relative">
         <motion.div
-          initial={{
-            opacity: 0,
-            x: -20
+          style={{
+            y: yHero,
+            scale: scaleHero,
+            opacity: opacityHero,
+            x: heroX
           }}
-          animate={{
-            opacity: 1,
-            x: 0
-          }}
-          transition={{
-            duration: 0.8
-          }}
-          className="mb-6 flex items-center gap-4">
+          className="absolute inset-0 z-0">
 
-          <span className="h-[1px] w-12 bg-editorial-text"></span>
-          <span className="text-sm tracking-[0.2em] uppercase text-editorial-textLight font-medium">
-            Vol. 24 — Editorial
-          </span>
+          <div className="absolute inset-0 bg-black/30 z-10" />
+          <img
+            src="/assets/herosection.webp"
+            alt="Luxury Architecture"
+            className="w-full h-full object-cover" />
+
         </motion.div>
 
-        <motion.h1
-          className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-serif text-editorial-text leading-[0.9] mb-8"
-          variants={container}
-          initial="hidden"
-          animate="visible">
+        <motion.div
+          style={{
+            y: yText,
+            x: useTransform(heroX, (val) => val * -0.5)
+          }}
+          className="relative z-20 text-center px-4 max-w-5xl mx-auto">
 
-          {words.map((word, index) =>
-          <motion.span
-            key={index}
-            variants={child}
-            className="inline-block mr-[0.2em] last:mr-0">
+          <motion.p
+            initial={{
+              opacity: 0,
+              y: 20
+            }}
+            animate={{
+              opacity: 1,
+              y: 0
+            }}
+            transition={{
+              duration: 0.8,
+              delay: 0.2
+            }}
+            className="text-sm md:text-base uppercase tracking-[0.3em] mb-6 text-gray-200">
 
-              {word}
+            Redefining Modern Living
+          </motion.p>
+
+          <div className="text-5xl md:text-8xl font-serif mb-8 leading-tight">
+            <TextReveal
+              text="The Art of"
+              className="justify-center"
+              delay={0.4} />
+
+            <motion.span
+              initial={{
+                opacity: 0
+              }}
+              animate={{
+                opacity: 1
+              }}
+              transition={{
+                delay: 0.8,
+                duration: 1
+              }}
+              className="italic font-light block">
+
+              Timeless Luxury
             </motion.span>
-          )}
-        </motion.h1>
+          </div>
 
-        <motion.p
-          initial={{
-            opacity: 0
-          }}
-          animate={{
-            opacity: 1
-          }}
-          transition={{
-            delay: 1.2,
-            duration: 0.8
-          }}
-          className="text-xl md:text-2xl text-editorial-textLight max-w-md font-light italic font-serif">
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 20
+            }}
+            animate={{
+              opacity: 1,
+              y: 0
+            }}
+            transition={{
+              duration: 0.8,
+              delay: 1
+            }}>
 
-          Exploring the intersection of minimalist design, authentic materials,
-          and modern spaces.
-        </motion.p>
+            <MagneticButton className="group flex items-center gap-4 mx-auto text-sm uppercase tracking-widest border-b border-white pb-2 hover:text-gray-300 hover:border-gray-300 transition-all">
+              Discover Collection{' '}
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </MagneticButton>
+          </motion.div>
+        </motion.div>
 
         <motion.div
           initial={{
@@ -105,49 +126,114 @@ export function HeroSection() {
             delay: 1.5,
             duration: 1
           }}
-          className="absolute bottom-12 left-8 md:left-16 lg:left-24 flex items-center gap-2 text-editorial-text/60">
+          className="absolute bottom-10 left-0 right-0 flex justify-center">
 
-          <span className="text-xs uppercase tracking-widest">Scroll</span>
+          <div className="w-[1px] h-24 bg-gradient-to-b from-white to-transparent opacity-50 animate-pulse"></div>
+        </motion.div>
+      </section>
+
+      {/* 2. About / Legacy Section */}
+      <section className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <motion.div
-            animate={{
-              y: [0, 5, 0]
+            initial={{
+              opacity: 0,
+              x: -50
+            }}
+            whileInView={{
+              opacity: 1,
+              x: 0
+            }}
+            viewport={{
+              once: true,
+              margin: '-100px'
             }}
             transition={{
-              repeat: Infinity,
-              duration: 2,
-              ease: 'easeInOut'
+              duration: 0.8
             }}>
 
-            <ArrowDown size={16} />
+            <h2 className="text-4xl md:text-6xl font-serif mb-8 leading-tight">
+              <TextReveal text="Crafting Legacies" />
+              <span className="block mt-2">Since 1976</span>
+            </h2>
+            <motion.div
+              initial={{
+                width: 0
+              }}
+              whileInView={{
+                width: 80
+              }}
+              viewport={{
+                once: true
+              }}
+              transition={{
+                duration: 1,
+                delay: 0.5
+              }}
+              className="h-[1px] bg-white mb-8">
+            </motion.div>
+            <p className="text-gray-400 text-lg leading-relaxed mb-6 font-light">
+              We don't just build structures; we curate lifestyles. Our
+              philosophy is rooted in the belief that true luxury lies in the
+              details the play of light, the texture of materials, and the
+              harmony of space.
+            </p>
+            <p className="text-gray-400 text-lg leading-relaxed font-light">
+              For over four decades, we have been at the forefront of
+              architectural innovation, creating iconic residences that stand as
+              testaments to uncompromising quality and visionary design.
+            </p>
           </motion.div>
-        </motion.div>
-      </div>
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0.9,
+              rotateY: 10
+            }}
+            whileInView={{
+              opacity: 1,
+              scale: 1,
+              rotateY: 0
+            }}
+            viewport={{
+              once: true
+            }}
+            transition={{
+              duration: 1,
+              type: 'spring'
+            }}
+            className="relative perspective-1000">
 
-      {/* Right Image Parallax */}
-      <div className="absolute inset-0 md:relative md:w-1/2 h-full overflow-hidden">
-        <div className="absolute inset-0 bg-editorial-bg/20 md:bg-transparent z-0 md:z-auto pointer-events-none mix-blend-overlay" />
-        <motion.div
-          className="w-full h-[120%] relative -top-[10%]"
-          initial={{
-            scale: 1.1,
-            opacity: 0
-          }}
-          animate={{
-            scale: 1,
-            opacity: 1
-          }}
-          transition={{
-            duration: 1.5,
-            ease: 'easeOut'
-          }}>
+            <div className="aspect-[3/4] overflow-hidden shadow-2xl transform transition-transform hover:scale-[1.02] duration-700">
+              <img
+                src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2500&auto=format&fit=crop"
+                alt="Architectural Detail"
+                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
 
-          <img
-            src="https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=2574&auto=format&fit=crop"
-            alt="Minimalist architecture"
-            className="w-full h-full object-cover" />
+            </div>
+            <motion.div
+              initial={{
+                x: -20,
+                opacity: 0
+              }}
+              whileInView={{
+                x: 0,
+                opacity: 1
+              }}
+              transition={{
+                delay: 0.5,
+                duration: 0.8
+              }}
+              className="absolute -bottom-10 -left-10 bg-[#121212] p-8 border border-white/10 hidden md:block shadow-xl">
 
-        </motion.div>
-      </div>
-    </section>);
-
+              <p className="font-serif text-3xl">45+</p>
+              <p className="text-xs uppercase tracking-widest text-gray-500 mt-2">
+                Years of Excellence
+              </p>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+    </React.Fragment>
+  )
 }

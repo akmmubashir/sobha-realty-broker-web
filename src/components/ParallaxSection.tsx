@@ -58,7 +58,7 @@ export function ParallaxSection({
         className="relative z-10 text-center max-w-4xl px-6">
 
           {subtitle &&
-        <span className="block text-editorial-text font-sans text-sm tracking-[0.2em] uppercase mb-4 bg-editorial-bg/80 backdrop-blur-sm py-2 px-4 inline-block mx-auto">
+        <span className="block text-editorial-text font-sans text-sm tracking-[0.2em] uppercase mb-4 bg-editorial-bg/80 backdrop-blur-sm py-2 px-4 mx-auto">
               {subtitle}
             </span>
         }
